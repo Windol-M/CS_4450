@@ -10,7 +10,8 @@ else:
 
 import collections
 from antlr4.Token import CommonToken, Token
-from Deliverable3Parser import Deliverable3Parser
+from Deliverable3Parser import Deliverable3Parser 
+
 
 def serializedATN():
     return [
@@ -189,10 +190,6 @@ class Deliverable3Lexer(Lexer):
 
     grammarFileName = "Deliverable3.g4"
 
-    indents = [0]
-    tokens = collections.deque()
-    at_start_of_line = True
-
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)
         self.checkVersion("4.13.2")
@@ -200,6 +197,10 @@ class Deliverable3Lexer(Lexer):
         self._actions = None
         self._predicates = None
 
+     
+    indents = [0]
+    tokens = collections.deque()
+    at_start_of_line = True
 
     def nextToken(self):
         if self.tokens:
@@ -259,6 +260,7 @@ class Deliverable3Lexer(Lexer):
 
     def WS_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 1:
+
             if self.at_start_of_line:
                 self.at_start_of_line = False
 
@@ -278,6 +280,7 @@ class Deliverable3Lexer(Lexer):
                 self.skip()
             else:
                 self.skip()
+
      
 
 

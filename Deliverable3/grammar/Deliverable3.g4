@@ -5,13 +5,13 @@ tokens { INDENT, DEDENT }
 @lexer::header {
 import collections
 from antlr4.Token import CommonToken, Token
-from Deliverable3Parser import Deliverable3Parser # Since the tokens don't show up in the lexer on their own.
+from Deliverable3Parser import Deliverable3Parser 
 }
 
-@lexer::members { // Just note that these won't work upon antlr generation, need to move them out the __init__.
-self.indents = [0]
-self.tokens = collections.deque()
-self.at_start_of_line = True
+@lexer::members { 
+indents = [0]
+tokens = collections.deque()
+at_start_of_line = True
 
 def nextToken(self):
     if self.tokens:
@@ -169,8 +169,7 @@ BOOLEAN : 'True' | 'False';
 NEWLINE : ('\r'? '\n')+
     {self.at_start_of_line = True}
 ;
-WS : [ \t]+ 
-    {
+WS : [ \t]+ {
 if self.at_start_of_line:
     self.at_start_of_line = False
 
@@ -190,7 +189,6 @@ if self.at_start_of_line:
     self.skip()
 else:
     self.skip()
-    }
-;
+};
 
 COMMENT : '#' .*? ('\n' | EOF) -> skip;
