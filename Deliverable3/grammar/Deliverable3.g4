@@ -1,5 +1,36 @@
 grammar Deliverable3;
 
+tokens { INDENT, DEDENT }
+
+@lexer::members {
+    import collections
+
+    indents = [0]
+
+    tokens = collections.deque()
+
+    at_start_of_line = True
+
+    def next_token(self):
+        if self.tokens:
+            return self.tokens.popleft()
+        
+        t = super().next_token()
+
+        if t.type == Eof and len(self.indents) > 1:
+            while len(self.indents) > 1:
+                self.indents.pop()
+                self.tokens.append(self.create_token(DEDENT, ''))
+            
+            self.tokens.append(t)
+            return self.tokens.popleft()
+
+        return t
+
+    def create_token(self, token_type, text):
+        return CommonToken(self._tokenFactorySourcePair, token_type, self.channel, self.tokenStartCharIndex, self._input.index() - 1, text)
+}
+
 prog
     : (statement NEWLINE?)* EOF
     ;
@@ -115,6 +146,33 @@ array
 
 BOOLEAN : 'True' | 'False';
 
-NEWLINE : ('\r'? '\n')+;
-WS : [ \t]+ -> skip;
+NEWLINE : ('\r'? '\n')+
+    {self.at_start_of_line = True}
+;
+WS : [ \t]+ 
+    {
+        if self.at_start_of_line:
+            self.at_start_of_line = False
+            
+            indent = self.text.replace('\t', '        ').count(' ')
+            current_indent = self.indents[-1]
+
+            if indent > current_indent:
+                self.indents.append(indent)
+                self.tokens.append(self.createToken(INDENT, self.text))
+            
+            elif indent < current_indent:
+                while len(self.indents) > 1 and self.indents[-1] > indent:
+                    self.indents.pop()
+                    self.tokens.append(self.createToken(DEDENT, ''))
+
+                if indent != self.indents[-1]:
+                    print(f"Error: Indent level {indent} does not match any previous level.")
+                    
+            self.skip()
+        else:
+            self.skip()
+    }
+;
+
 COMMENT : '#' .*? ('\n' | EOF) -> skip;
