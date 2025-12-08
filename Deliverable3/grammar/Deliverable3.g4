@@ -186,9 +186,6 @@ if self.at_start_of_line:
         if self.indents[-1] != indent:
             print(f"Error: Indent level {indent} does not match any previous level {self.indents}")
 
-    self.skip()
-else:
-    self.skip()
-};
+} -> skip;
 
 COMMENT : '#' .*? ('\n' | EOF) -> skip;
