@@ -18,7 +18,7 @@ def print_tree(node, parser, level=0):
 def main():
     print("Starting the parser: ")
     
-    input_file = "../tests/project_deliverable_1.py"
+    input_file = "../tests/project_deliverable_3.py"
     input_stream = FileStream(input_file, encoding="utf-8")
     lexer = Deliverable3Lexer(input_stream)
     tokens = CommonTokenStream(lexer)

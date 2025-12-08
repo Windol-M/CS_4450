@@ -2,33 +2,39 @@ grammar Deliverable3;
 
 tokens { INDENT, DEDENT }
 
+@lexer::header {
+import collections
+from antlr4.Token import CommonToken, Token
+from Deliverable3Parser import Deliverable3Parser # Since the tokens don't show up in the lexer on their own.
+}
+
 @lexer::members {
-    import collections
+self.indents = [0]
+self.tokens = collections.deque()
+self.at_start_of_line = True
 
-    indents = [0]
+def nextToken(self):
+    if self.tokens:
+        return self.tokens.popleft()
+    
+    t = super().nextToken()
 
-    tokens = collections.deque()
-
-    at_start_of_line = True
-
-    def next_token(self):
-        if self.tokens:
-            return self.tokens.popleft()
+    if t.type == Token.EOF and len(self.indents) > 1:
+        while len(self.indents) > 1:
+            self.indents.pop()
+            self.tokens.append(self.create_token(Deliverable3Parser.DEDENT, ''))
         
-        t = super().next_token()
+        self.tokens.append(t)
+        return self.tokens.popleft()
 
-        if t.type == Eof and len(self.indents) > 1:
-            while len(self.indents) > 1:
-                self.indents.pop()
-                self.tokens.append(self.create_token(DEDENT, ''))
-            
-            self.tokens.append(t)
-            return self.tokens.popleft()
+    return t
 
-        return t
-
-    def create_token(self, token_type, text):
-        return CommonToken(self._tokenFactorySourcePair, token_type, self.channel, self.tokenStartCharIndex, self._input.index() - 1, text)
+def create_token(self, token_type, text):
+    from antlr4.Token import CommonToken
+    token = CommonToken(type=token_type)
+    token.text = text
+    token.channel = self._channel
+    return token
 }
 
 prog
@@ -56,14 +62,14 @@ assignment_operations
     ;
     
 if_statement
-    : 'if' condition_or ':' NEWLINE (statement NEWLINE?)* ('elif' condition_or ':' NEWLINE (statement NEWLINE?)*)* ('else:' NEWLINE (statement NEWLINE?)*)?;
+    : 'if' condition_or ':' NEWLINE INDENT (statement NEWLINE?)* DEDENT ('elif' condition_or ':' NEWLINE INDENT (statement NEWLINE?)* DEDENT)* ('else:' NEWLINE INDENT (statement NEWLINE?)* DEDENT)?;
 
 while_statement
-    : 'while' condition_or ':' NEWLINE (statement NEWLINE?)*
+    : 'while' condition_or ':' NEWLINE INDENT (statement NEWLINE?)* DEDENT
     ;
 
 for_statement
-    : 'for' NAME 'in' expr ':' NEWLINE (statement NEWLINE?)*
+    : 'for' NAME 'in' expr ':' NEWLINE INDENT (statement NEWLINE?)* DEDENT
     ;
 
 condition_or
@@ -151,27 +157,27 @@ NEWLINE : ('\r'? '\n')+
 ;
 WS : [ \t]+ 
     {
-        if self.at_start_of_line:
-            self.at_start_of_line = False
-            
-            indent = self.text.replace('\t', '        ').count(' ')
-            current_indent = self.indents[-1]
+if self.at_start_of_line:
+    self.at_start_of_line = False
+    
+    indent = len(self.text.replace('\t', '        '))
+    current_indent = self.indents[-1]
 
-            if indent > current_indent:
-                self.indents.append(indent)
-                self.tokens.append(self.createToken(INDENT, self.text))
-            
-            elif indent < current_indent:
-                while len(self.indents) > 1 and self.indents[-1] > indent:
-                    self.indents.pop()
-                    self.tokens.append(self.createToken(DEDENT, ''))
+    if indent > current_indent:
+        self.indents.append(indent)
+        self.tokens.append(self.create_token(Deliverable3Parser.INDENT, self.text))
+    
+    elif indent < current_indent:
+        while len(self.indents) > 1 and self.indents[-1] > indent:
+            self.indents.pop()
+            self.tokens.append(self.create_token(Deliverable3Parser.DEDENT, ''))
 
-                if indent != self.indents[-1]:
-                    print(f"Error: Indent level {indent} does not match any previous level.")
-                    
-            self.skip()
-        else:
-            self.skip()
+        if indent != self.indents[-1]:
+            print(f"Error: Indent level {indent} does not match any previous level.")
+            
+    self.skip()
+else:
+    self.skip()
     }
 ;
 
