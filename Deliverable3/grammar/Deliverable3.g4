@@ -8,7 +8,7 @@ from antlr4.Token import CommonToken, Token
 from Deliverable3Parser import Deliverable3Parser # Since the tokens don't show up in the lexer on their own.
 }
 
-@lexer::members {
+@lexer::members { // Just note that these won't work upon antlr generation, need to move them out the __init__.
 self.indents = [0]
 self.tokens = collections.deque()
 self.at_start_of_line = True
@@ -18,6 +18,20 @@ def nextToken(self):
         return self.tokens.popleft()
     
     t = super().nextToken()
+
+    # Handle dedents at start of line when there's no leading whitespace
+    if self.at_start_of_line and t.type not in [self.WS, self.NEWLINE, Token.EOF]:
+        self.at_start_of_line = False
+        indent = 0
+        
+        # Generate DEDENTs if we've decreased indentation
+        while len(self.indents) > 1 and self.indents[-1] > indent:
+            self.indents.pop()
+            self.tokens.append(self.create_token(Deliverable3Parser.DEDENT, ''))
+        
+        if self.tokens:
+            self.tokens.append(t)
+            return self.tokens.popleft()
 
     if t.type == Token.EOF and len(self.indents) > 1:
         while len(self.indents) > 1:
@@ -159,22 +173,20 @@ WS : [ \t]+
     {
 if self.at_start_of_line:
     self.at_start_of_line = False
-    
+
     indent = len(self.text.replace('\t', '        '))
     current_indent = self.indents[-1]
 
     if indent > current_indent:
         self.indents.append(indent)
         self.tokens.append(self.create_token(Deliverable3Parser.INDENT, self.text))
-    
     elif indent < current_indent:
         while len(self.indents) > 1 and self.indents[-1] > indent:
             self.indents.pop()
             self.tokens.append(self.create_token(Deliverable3Parser.DEDENT, ''))
+        if self.indents[-1] != indent:
+            print(f"Error: Indent level {indent} does not match any previous level {self.indents}")
 
-        if indent != self.indents[-1]:
-            print(f"Error: Indent level {indent} does not match any previous level.")
-            
     self.skip()
 else:
     self.skip()
