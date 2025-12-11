@@ -4,9 +4,9 @@ from Deliverable3Lexer import Deliverable3Lexer
 from Deliverable3Parser import Deliverable3Parser
 from antlr4.tree.Trees import Trees
 
-# -----------------------------
-# Pretty-printing function
-# -----------------------------
+# Put the path to the input test file here
+input = "../tests/project_deliverable_3.py"
+
 def print_tree(node, parser, indent=0):
     """Recursively pretty-print the ANTLR parse tree."""
     rule_names = parser.ruleNames
@@ -24,16 +24,10 @@ def print_tree(node, parser, indent=0):
         print_tree(child, parser, indent + 1)
 
 
-# -----------------------------
-# Main program
-# -----------------------------
 def main(argv):
-    if len(argv) < 2:
-        print("Usage: python Deliverable3_main.py <inputfile>")
-        return
 
     # Load input file
-    input_stream = FileStream(argv[1], encoding='utf-8')
+    input_stream = FileStream(input, encoding='utf-8')
 
     # Create lexer + parser
     lexer = Deliverable3Lexer(input_stream)
@@ -43,16 +37,16 @@ def main(argv):
     # Parse
     tree = parser.prog()
 
-    # ========== Print in terminal ==========
-    print("\n===== ANTLR toStringTree =====")
-    print(tree.toStringTree(recog=parser))
+    # Uncomment to see a string tree representation
+    # print("\nANTLR toStringTree")
+    # print(tree.toStringTree(recog=parser))
 
-    # ========== Pretty-print to terminal ==========
-    print("\n===== Pretty Printed Tree (first part) =====")
+    # Human friendly printout
+    print("\nTree (in terminal):")
     print_tree(tree, parser)
 
-    # ========== SAVE FULL TREE TO FILE ==========
-    print("\nSaving full pretty tree to parse_tree.txt ...")
+    
+    print("\nSaving tree to parse_tree.txt")
 
     with open("parse_tree.txt", "w", encoding="utf-8") as f:
         # Temporarily redirect stdout into the file
@@ -61,11 +55,8 @@ def main(argv):
         print_tree(tree, parser)
         sys.stdout = original_stdout
 
-    print("Done! Tree saved to parse_tree.txt\n")
+    print("Tree saved to parse_tree.txt\n")
 
 
-# -----------------------------
-# Run program
-# -----------------------------
 if __name__ == "__main__":
     main(sys.argv)

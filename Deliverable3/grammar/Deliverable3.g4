@@ -1,5 +1,29 @@
 grammar Deliverable3;
 
+tokens { INDENT, DEDENT }
+
+@lexer::header{
+from antlr_denter.DenterHelper import DenterHelper
+from Deliverable3Parser import Deliverable3Parser
+}
+@lexer::members {
+class Deliverable3Denter(DenterHelper):
+    def __init__(self, lexer, nl_token, indent_token, dedent_token, ignore_eof):
+        super().__init__(nl_token, indent_token, dedent_token, ignore_eof)
+        self.lexer: Deliverable3Lexer = lexer
+
+    def pull_token(self):
+        return super(Deliverable3Lexer, self.lexer).nextToken()
+
+denter = None
+
+def nextToken(self):
+    if not self.denter:
+        self.denter = self.Deliverable3Denter(self, self.NEWLINE, Deliverable3Parser.INDENT, Deliverable3Parser.DEDENT, False)
+    return self.denter.next_token()
+
+}
+
 prog
     : (statement NEWLINE?)* EOF
     ;
@@ -28,21 +52,25 @@ assignment_operations
     | DIVEQ
     ;
 
+block_body
+    : INDENT (statement NEWLINE?)+ DEDENT
+    ;
+
 if_statement
-    : IF condition_or COLON NEWLINE
-      (statement NEWLINE?)*
-      (ELIF condition_or COLON NEWLINE (statement NEWLINE?)*)*
-      (ELSE COLON NEWLINE (statement NEWLINE?)*)?
+    : IF condition_or COLON
+      block_body
+      (ELIF condition_or COLON block_body)*
+      (ELSE COLON block_body)?
     ;
 
 while_statement
-    : WHILE condition_or COLON NEWLINE
-      (statement NEWLINE?)*
+    : WHILE condition_or COLON
+      block_body
     ;
 
 for_statement
-    : FOR NAME IN expr COLON NEWLINE
-      (statement NEWLINE?)*
+    : FOR NAME IN expr COLON
+      block_body
     ;
 
 condition_or
@@ -155,7 +183,7 @@ STRING
 
 NAME : [a-zA-Z_][a-zA-Z_0-9]*;
 
-NEWLINE : ('\r'? '\n')+ ;
+NEWLINE : ('\r'? '\n' '\t'*);
 
 MULTILINE_COMMENT
     : ( '\'\'\'' .*? '\'\'\''
