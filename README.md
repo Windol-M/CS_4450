@@ -28,7 +28,7 @@ How to run:
 3. Then enter the folder using "cd <Your Project Folder>"
 
 4. Install Required Software:
-    This includes Installing Python 3, Check version: python --version. Install Java (Required for ANTLR) Check version: java -version. Then Install the ANTLR4 Python Runtime. Then Run: pip install antlr4-python3-runtime. Then Download the ANTLR4 Tool by going to: https://www.antlr.org/download.html. Download the file named similar to: antlr-4.13.1-complete.jar. Alternatively, you could download the jar through pip with the command: pip install antlr4-tools.
+    This includes Installing Python 3, Check version: python --version. Install Java (Required for ANTLR) Check version: java -version. Then Install the ANTLR4 Python Runtime. Then Run: pip install antlr4-python3-runtime. Then Download the ANTLR4 Tool by going to: https://www.antlr.org/download.html. Download the file named similar to: antlr-4.13.1-complete.jar. Alternatively, you could download the jar through pip with the command: pip install antlr4-tools. To run deliverable 3, you must also install antlr-denter. This can be installed through pip with the command: pip install antlr-denter.
 
 5. Generate Lexer & Parser Files
     Everytime you updated <GrammarFile.g4>, you must regenerate ANTLR files. Then navigate to the grammar folder: cd grammar. Then Run the ANTLR tool manually using Java. Then copy and paste exactly the command below, replacing <PATH> with your actual path to the ANTLR jar: java -jar C:\antlr\antlr-4.13.1-complete.jar, antlr4 -Dlanguage=Python3 <GrammarFile.g4> -o <output_folder>. If you used pip to install antlr4, you can do this command with antlr4 -Dlanguage=Python3 <GrammarFile.g4>.
