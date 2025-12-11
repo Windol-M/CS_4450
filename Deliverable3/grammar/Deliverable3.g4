@@ -5,11 +5,15 @@ prog
     ;
 
 statement
-    : assignment
-    | expr
+    : simple_stmt
     | if_statement
     | while_statement
     | for_statement
+    ;
+
+simple_stmt
+    : assignment
+    | expr
     ;
 
 assignment
@@ -17,40 +21,47 @@ assignment
     ;
 
 assignment_operations
-    : '=' 
-    | '+=' 
-    | '-=' 
-    | '*=' 
-    | '/='
+    : ASSIGN
+    | PLUSEQ
+    | MINUSEQ
+    | MULEQ
+    | DIVEQ
     ;
-    
+
 if_statement
-    : 'if' condition_or ':' NEWLINE (statement NEWLINE?)* ('elif' condition_or ':' NEWLINE (statement NEWLINE?)*)* ('else:' NEWLINE (statement NEWLINE?)*)?;
+    : IF condition_or COLON NEWLINE
+      (statement NEWLINE?)*
+      (ELIF condition_or COLON NEWLINE (statement NEWLINE?)*)*
+      (ELSE COLON NEWLINE (statement NEWLINE?)*)?
+    ;
 
 while_statement
-    : 'while' condition_or ':' NEWLINE (statement NEWLINE?)*
+    : WHILE condition_or COLON NEWLINE
+      (statement NEWLINE?)*
     ;
 
 for_statement
-    : 'for' NAME 'in' expr ':' NEWLINE (statement NEWLINE?)*
+    : FOR NAME IN expr COLON NEWLINE
+      (statement NEWLINE?)*
     ;
 
 condition_or
-    : condition_or 'or' condition_and
-    | condition_and;
+    : condition_or OR condition_and
+    | condition_and
+    ;
 
 condition_and
-    : condition_and 'and' condition_not
+    : condition_and AND condition_not
     | condition_not
     ;
 
 condition_not
-    : 'not' condition_not
+    : NOT condition_not
     | general_condition
     ;
 
 general_condition
-    : '(' condition_or ')'
+    : LPAREN condition_or RPAREN
     | comparison
     | BOOLEAN
     | NAME
@@ -61,24 +72,24 @@ comparison
     ;
 
 conditional_operations
-    : '<'
-    | '<='
-    | '>'
-    | '>='
-    | '=='
-    | '!='
+    : LT
+    | LE
+    | GT
+    | GE
+    | EQ
+    | NEQ
     ;
 
 expr
-    : term (('+' | '-') term)*
+    : term ((PLUS | MINUS) term)*
     ;
 
 term
-    : factor (('*' | '/' | '%') factor)*
+    : factor ((MUL | DIV | MOD) factor)*
     ;
 
 factor
-    : ('+' | '-')? value
+    : (PLUS | MINUS)? value
     ;
 
 value
@@ -86,35 +97,74 @@ value
     | FLOAT
     | STRING
     | BOOLEAN
-    | NAME ('[' expr ']')?
+    | NAME (LBRACKET expr RBRACKET)?
     | array
-    | '[' expr ']'
-    | NAME '(' (expr (',' expr)*)? ')'
+    | LBRACKET expr RBRACKET
+    | NAME LPAREN (expr (COMMA expr)*)? RPAREN
     ;
-
-LPAREN  : '(';
-RPAREN  : ')';
-
-MULTILINE_COMMENT
-    : ( '\'\'\'' .*? '\'\'\'' 
-      | '"""' .*? '"""'
-      ) -> skip
-    ;
-
-NUMBER  : [0-9]+ ;
-
-FLOAT   : [0-9]+ '.' [0-9]+ ;
-
-STRING : '"' .*? '"' | '\'' .*? '\'';
-
-NAME : [a-zA-Z_][a-zA-Z_0-9]*;
 
 array
-    : '[' (expr (',' expr)*)? ']'
+    : LBRACKET (expr (COMMA expr)*)? RBRACKET
     ;
+
+IF      : 'if';
+ELIF    : 'elif';
+ELSE    : 'else';
+WHILE   : 'while';
+FOR     : 'for';
+IN      : 'in';
+NOT     : 'not';
+AND     : 'and';
+OR      : 'or';
 
 BOOLEAN : 'True' | 'False';
 
-NEWLINE : ('\r'? '\n')+;
+ASSIGN  : '=';
+PLUSEQ  : '+=';
+MINUSEQ : '-=';
+MULEQ   : '*=';
+DIVEQ   : '/=';
+
+PLUS    : '+';
+MINUS   : '-';
+MUL     : '*';
+DIV     : '/';
+MOD     : '%';
+
+LT      : '<';
+LE      : '<=';
+GT      : '>';
+GE      : '>=';
+EQ      : '==';
+NEQ     : '!=';
+
+LPAREN  : '(';
+RPAREN  : ')';
+LBRACKET  : '[';
+RBRACKET  : ']';
+COLON   : ':';
+COMMA   : ',';
+
+NUMBER  : [0-9]+ ;
+FLOAT   : [0-9]+ '.' [0-9]+ ;
+
+STRING
+    : '"'  ( ~["\\] | '\\' . )* '"'
+    | '\'' ( ~['\\] | '\\' . )* '\''
+    ;
+
+NAME : [a-zA-Z_][a-zA-Z_0-9]*;
+
+NEWLINE : ('\r'? '\n')+ ;
+
+MULTILINE_COMMENT
+    : ( '\'\'\'' .*? '\'\'\''
+      | '"""'  .*? '"""'
+      ) -> skip
+    ;
+
+COMMENT
+    : '#' .*? ('\n' | EOF) -> skip
+    ;
+
 WS : [ \t]+ -> skip;
-COMMENT : '#' .*? ('\n' | EOF) -> skip;

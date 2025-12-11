@@ -26,6 +26,15 @@ class Deliverable3Listener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by Deliverable3Parser#simple_stmt.
+    def enterSimple_stmt(self, ctx:Deliverable3Parser.Simple_stmtContext):
+        pass
+
+    # Exit a parse tree produced by Deliverable3Parser#simple_stmt.
+    def exitSimple_stmt(self, ctx:Deliverable3Parser.Simple_stmtContext):
+        pass
+
+
     # Enter a parse tree produced by Deliverable3Parser#assignment.
     def enterAssignment(self, ctx:Deliverable3Parser.AssignmentContext):
         pass

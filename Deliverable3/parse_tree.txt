@@ -1,0 +1,1094 @@
+prog
+  statement
+    simple_stmt
+      assignment
+        assign1
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                "20"
+  
+
+  statement
+    simple_stmt
+      assignment
+        assign2
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                123
+  
+
+  statement
+    simple_stmt
+      assignment
+        assign3
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                1.23
+  
+
+  statement
+    simple_stmt
+      assignment
+        assign4
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                assign1
+  
+
+
+  statement
+    simple_stmt
+      assignment
+        arith_op1
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                1
+          +
+          term
+            factor
+              value
+                2
+  
+
+  statement
+    simple_stmt
+      assignment
+        arith_op2
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                13
+          -
+          term
+            factor
+              value
+                3
+  
+
+  statement
+    simple_stmt
+      assignment
+        arith_op3
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                10
+            /
+            factor
+              value
+                arith_op1
+  
+
+  statement
+    simple_stmt
+      assignment
+        arith_op4
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                4.2
+            *
+            factor
+              value
+                10
+  
+
+  statement
+    simple_stmt
+      assignment
+        arith_op5
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                arith_op1
+            %
+            factor
+              value
+                arith_op2
+  
+
+
+  statement
+    simple_stmt
+      assignment
+        arith_op1
+        assignment_operations
+          +=
+        expr
+          term
+            factor
+              value
+                arith_op2
+  
+
+  statement
+    simple_stmt
+      assignment
+        arith_op2
+        assignment_operations
+          -=
+        expr
+          term
+            factor
+              value
+                arith_op3
+  
+
+  statement
+    simple_stmt
+      assignment
+        arith_op3
+        assignment_operations
+          *=
+        expr
+          term
+            factor
+              value
+                arith_op4
+  
+
+  statement
+    simple_stmt
+      assignment
+        arith_op4
+        assignment_operations
+          /=
+        expr
+          term
+            factor
+              value
+                arith_op5
+  
+
+
+  statement
+    simple_stmt
+      assignment
+        array1
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                array
+                  [
+                  expr
+                    term
+                      factor
+                        value
+                          1
+                  ,
+                  expr
+                    term
+                      factor
+                        value
+                          2
+                  ,
+                  expr
+                    term
+                      factor
+                        value
+                          3
+                  ,
+                  expr
+                    term
+                      factor
+                        value
+                          4
+                  ,
+                  expr
+                    term
+                      factor
+                        value
+                          5
+                  ]
+  
+
+  statement
+    simple_stmt
+      assignment
+        array2
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                array
+                  [
+                  expr
+                    term
+                      factor
+                        value
+                          'a'
+                  ,
+                  expr
+                    term
+                      factor
+                        value
+                          'b'
+                  ,
+                  expr
+                    term
+                      factor
+                        value
+                          'c'
+                  ]
+  
+
+  statement
+    simple_stmt
+      assignment
+        array3
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                array
+                  [
+                  expr
+                    term
+                      factor
+                        value
+                          1.6
+                  ,
+                  expr
+                    term
+                      factor
+                        value
+                          2.7
+                  ,
+                  expr
+                    term
+                      factor
+                        value
+                          3.8
+                  ,
+                  expr
+                    term
+                      factor
+                        value
+                          4.9
+                  ,
+                  expr
+                    term
+                      factor
+                        value
+                          5.0
+                  ]
+  
+
+
+  statement
+    simple_stmt
+      assignment
+        var1
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                10
+  
+
+  statement
+    simple_stmt
+      assignment
+        var2
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                var1
+            /
+            factor
+              value
+                2
+          +
+          term
+            factor
+              value
+                5
+  
+
+  statement
+    simple_stmt
+      assignment
+        var3
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                var2
+            %
+            factor
+              value
+                2
+  
+
+  statement
+    simple_stmt
+      assignment
+        var4
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                1
+  
+
+
+  statement
+    simple_stmt
+      assignment
+        flag
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                True
+  
+
+
+  statement
+    simple_stmt
+      assignment
+        assign1
+        assignment_operations
+          =
+        expr
+          term
+            factor
+              value
+                ""
+  
+
+
+  statement
+    if_statement
+      if
+      condition_or
+        condition_and
+          condition_not
+            general_condition
+              comparison
+                expr
+                  term
+                    factor
+                      value
+                        var1
+                conditional_operations
+                  >
+                expr
+                  term
+                    factor
+                      value
+                        var2
+      :
+      
+
+      statement
+        simple_stmt
+          assignment
+            arith_op1
+            assignment_operations
+              =
+            expr
+              term
+                factor
+                  value
+                    1
+              +
+              term
+                factor
+                  value
+                    2
+      
+
+      statement
+        simple_stmt
+          assignment
+            assign1
+            assignment_operations
+              =
+            expr
+              term
+                factor
+                  value
+                    "text data"
+      
+
+
+      statement
+        if_statement
+          if
+          condition_or
+            condition_and
+              condition_and
+                condition_not
+                  general_condition
+                    comparison
+                      expr
+                        term
+                          factor
+                            value
+                              var1
+                      conditional_operations
+                        <=
+                      expr
+                        term
+                          factor
+                            value
+                              var2
+              and
+              condition_not
+                general_condition
+                  comparison
+                    expr
+                      term
+                        factor
+                          value
+                            var3
+                    conditional_operations
+                      ==
+                    expr
+                      term
+                        factor
+                          value
+                            var4
+          :
+          
+
+          statement
+            simple_stmt
+              assignment
+                arith_op1
+                assignment_operations
+                  =
+                expr
+                  term
+                    factor
+                      value
+                        1
+                  +
+                  term
+                    factor
+                      value
+                        2
+          
+
+          statement
+            simple_stmt
+              assignment
+                assign1
+                assignment_operations
+                  =
+                expr
+                  term
+                    factor
+                      value
+                        "text data"
+          
+
+          else
+          :
+          
+
+          statement
+            simple_stmt
+              assignment
+                arith_op4
+                assignment_operations
+                  =
+                expr
+                  term
+                    factor
+                      value
+                        4.2
+                    *
+                    factor
+                      value
+                        10
+          
+
+          statement
+            simple_stmt
+              assignment
+                arith_op3
+                assignment_operations
+                  *=
+                expr
+                  term
+                    factor
+                      value
+                        arith_op4
+          
+
+
+          statement
+            simple_stmt
+              assignment
+                data
+                assignment_operations
+                  =
+                expr
+                  term
+                    factor
+                      value
+                        0
+          
+
+
+          statement
+            if_statement
+              if
+              condition_or
+                condition_or
+                  condition_and
+                    condition_not
+                      general_condition
+                        comparison
+                          expr
+                            term
+                              factor
+                                value
+                                  var1
+                          conditional_operations
+                            !=
+                          expr
+                            term
+                              factor
+                                value
+                                  var2
+                or
+                condition_and
+                  condition_not
+                    general_condition
+                      comparison
+                        expr
+                          term
+                            factor
+                              value
+                                var3
+                        conditional_operations
+                          >=
+                        expr
+                          term
+                            factor
+                              value
+                                var4
+              :
+              
+
+              statement
+                simple_stmt
+                  assignment
+                    flag
+                    assignment_operations
+                      =
+                    expr
+                      term
+                        factor
+                          value
+                            True
+              
+
+              elif
+              condition_or
+                condition_and
+                  condition_and
+                    condition_not
+                      general_condition
+                        (
+                        condition_or
+                          condition_and
+                            condition_not
+                              not
+                              condition_not
+                                general_condition
+                                  comparison
+                                    expr
+                                      term
+                                        factor
+                                          value
+                                            flag
+                        )
+                  and
+                  condition_not
+                    general_condition
+                      comparison
+                        expr
+                          term
+                            factor
+                              value
+                                var3
+                        conditional_operations
+                          >
+                        expr
+                          term
+                            factor
+                              value
+                                10
+              :
+              
+
+              statement
+                simple_stmt
+                  assignment
+                    flag
+                    assignment_operations
+                      =
+                    expr
+                      term
+                        factor
+                          value
+                            False
+              
+
+              else
+              :
+              
+
+              statement
+                simple_stmt
+                  assignment
+                    data
+                    assignment_operations
+                      =
+                    expr
+                      term
+                        factor
+                          -
+                          value
+                            1
+              
+
+
+          
+
+      
+
+  
+
+
+  statement
+    while_statement
+      while
+      condition_or
+        condition_or
+          condition_and
+            condition_not
+              general_condition
+                comparison
+                  expr
+                    term
+                      factor
+                        value
+                          data
+                  conditional_operations
+                    >
+                  expr
+                    term
+                      factor
+                        value
+                          0
+        or
+        condition_and
+          condition_not
+            general_condition
+              comparison
+                expr
+                  term
+                    factor
+                      value
+                        data
+                conditional_operations
+                  !=
+                expr
+                  term
+                    factor
+                      value
+                        0
+      :
+      
+
+      statement
+        simple_stmt
+          assignment
+            data
+            assignment_operations
+              =
+            expr
+              term
+                factor
+                  value
+                    data
+              -
+              term
+                factor
+                  value
+                    1
+      
+
+      statement
+        if_statement
+          if
+          condition_or
+            condition_and
+              condition_not
+                general_condition
+                  comparison
+                    expr
+                      term
+                        factor
+                          value
+                            True
+          :
+          
+
+          statement
+            simple_stmt
+              assignment
+                a
+                assignment_operations
+                  =
+                expr
+                  term
+                    factor
+                      value
+                        "This is the weirdest code I have ever written"
+          
+
+
+          statement
+            for_statement
+              for
+              data
+              in
+              expr
+                term
+                  factor
+                    value
+                      array1
+              :
+              
+
+              statement
+                if_statement
+                  if
+                  condition_or
+                    condition_and
+                      condition_not
+                        general_condition
+                          comparison
+                            expr
+                              term
+                                factor
+                                  value
+                                    data
+                            conditional_operations
+                              <
+                            expr
+                              term
+                                factor
+                                  value
+                                    0
+                  :
+                  
+
+                  statement
+                    while_statement
+                      while
+                      condition_or
+                        condition_and
+                          condition_not
+                            general_condition
+                              (
+                              condition_or
+                                condition_and
+                                  condition_not
+                                    general_condition
+                                      comparison
+                                        expr
+                                          term
+                                            factor
+                                              value
+                                                data
+                                        conditional_operations
+                                          !=
+                                        expr
+                                          term
+                                            factor
+                                              value
+                                                0
+                              )
+                      :
+                      
+
+                      statement
+                        simple_stmt
+                          assignment
+                            b
+                            assignment_operations
+                              =
+                            expr
+                              term
+                                factor
+                                  value
+                                    "This code doesn't make any sense"
+                      
+
+                      statement
+                        simple_stmt
+                          assignment
+                            data
+                            assignment_operations
+                              =
+                            expr
+                              term
+                                factor
+                                  value
+                                    data
+                              +
+                              term
+                                factor
+                                  value
+                                    1
+                      
+
+                  elif
+                  condition_or
+                    condition_and
+                      condition_not
+                        general_condition
+                          comparison
+                            expr
+                              term
+                                factor
+                                  value
+                                    data
+                            conditional_operations
+                              >
+                            expr
+                              term
+                                factor
+                                  value
+                                    0
+                  :
+                  
+
+                  statement
+                    while_statement
+                      while
+                      condition_or
+                        condition_and
+                          condition_not
+                            general_condition
+                              (
+                              condition_or
+                                condition_and
+                                  condition_not
+                                    general_condition
+                                      comparison
+                                        expr
+                                          term
+                                            factor
+                                              value
+                                                data
+                                        conditional_operations
+                                          !=
+                                        expr
+                                          term
+                                            factor
+                                              value
+                                                0
+                              )
+                      :
+                      
+
+                      statement
+                        simple_stmt
+                          assignment
+                            c
+                            assignment_operations
+                              =
+                            expr
+                              term
+                                factor
+                                  value
+                                    "I feel like I have no purpose..."
+                      
+
+                      statement
+                        simple_stmt
+                          assignment
+                            data
+                            assignment_operations
+                              =
+                            expr
+                              term
+                                factor
+                                  value
+                                    data
+                              -
+                              term
+                                factor
+                                  value
+                                    1
+                      
+
+
+                      statement
+                        for_statement
+                          for
+                          i
+                          in
+                          expr
+                            term
+                              factor
+                                value
+                                  range
+                                  (
+                                  expr
+                                    term
+                                      factor
+                                        value
+                                          0
+                                  ,
+                                  expr
+                                    term
+                                      factor
+                                        value
+                                          5
+                                  )
+                          :
+                          
+
+                          statement
+                            simple_stmt
+                              assignment
+                                data
+                                assignment_operations
+                                  =
+                                expr
+                                  term
+                                    factor
+                                      value
+                                        data
+                                    *
+                                    factor
+                                      value
+                                        2
+                          
+
+                          statement
+                            simple_stmt
+                              assignment
+                                data
+                                assignment_operations
+                                  =
+                                expr
+                                  term
+                                    factor
+                                      value
+                                        data
+                                  -
+                                  term
+                                    factor
+                                      value
+                                        1
+                          
+
+
+                      
+
+                      statement
+                        while_statement
+                          while
+                          condition_or
+                            condition_and
+                              condition_not
+                                general_condition
+                                  comparison
+                                    expr
+                                      term
+                                        factor
+                                          value
+                                            True
+                          :
+                          
+
+                          statement
+                            simple_stmt
+                              assignment
+                                data
+                                assignment_operations
+                                  =
+                                expr
+                                  term
+                                    factor
+                                      value
+                                        30
+                          
+
+                          statement
+                            simple_stmt
+                              assignment
+                                data
+                                assignment_operations
+                                  =
+                                expr
+                                  term
+                                    factor
+                                      value
+                                        data
+                                  -
+                                  term
+                                    factor
+                                      value
+                                        1
+  <EOF>
